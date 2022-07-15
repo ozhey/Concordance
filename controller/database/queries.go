@@ -23,14 +23,34 @@ SELECT *
 FROM articles
 `
 
-	getArticleWords = `
-SELECT word, COUNT(word),
-       string_agg(CONCAT('page: ',ap.page_number::text, ' line: ',al.line_number::text, ' word: ',word_number::text),  E'\n' ORDER BY ap.page_number, al.line_number, word_number) AS index
-FROM article_words
-         JOIN article_lines al on al.id = article_words.article_line_id
-         JOIN article_pages ap on ap.id = al.article_page_id
-         JOIN articles a on a.id = ap.article_id
-WHERE a.id = ?
-GROUP BY word
+	getWordsIndex = `
+SELECT LOWER(word)                                                      AS word,
+       COUNT(word),
+       string_agg(CONCAT(a.id, ',', ap.page_number::text, ',', al.line_number::text, ',', word_number::text), E'\n'
+                  ORDER BY ap.page_number, al.line_number, word_number) AS index
+FROM article_words aw
+         JOIN article_lines al ON al.id = aw.article_line_id
+         JOIN article_pages ap ON ap.id = al.article_page_id
+         JOIN articles a ON a.id = ap.article_id
+WHERE ?
+  AND ?
+GROUP BY LOWER(word)
 ORDER BY COUNT(word) DESC`
+
+	wordsIndexWithWordGroup = `
+LOWER(word) IN (SELECT w.word
+                      FROM word_groups wg
+                               JOIN words w ON wg.id = w.word_group_id
+                      WHERE wg.id = %s)`
+
+	getWordByPosition = `
+SELECT word
+FROM article_words
+         JOIN article_lines al ON al.id = article_words.article_line_id
+         JOIN article_pages ap ON ap.id = al.article_page_id
+         JOIN articles a ON a.id = ap.article_id
+WHERE a.id = ?
+  AND page_number = ?
+  AND line_number = ?
+  AND word_number = ?`
 )

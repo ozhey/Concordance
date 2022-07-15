@@ -6,10 +6,17 @@ import (
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+	r.POST("/articles", createArticle)
 	r.GET("/articles", listArticles)
 	r.GET("/articles/:id", getArticle)
-	r.GET("/articles/:id/words", getArticleWords)
-	r.GET("words", getWordByPosition)
-	r.POST("/articles", createArticle)
+	r.GET("/articles/words", getWordsIndex)
+
+	r.GET("/article_words", getWordByPosition)
+
+	//r.GET("/word_group", listWordGroups)
+	r.POST("/word_group", createWordGroup)
+
+	//r.POST("/linguistic_expr", listLinguisticExpr)
+	r.POST("/linguistic_expr", createLinguisticExpr)
 	return r
 }

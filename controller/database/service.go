@@ -1,47 +1,57 @@
 package database
 
-type NewArticle struct {
-	Title       string `json:"title" binding:"required"`
-	Author      string `json:"author" binding:"required"`
-	PublishedAt string `json:"published_at" binding:"required"`
-	Source      string `json:"source" binding:"required"`
-	RawContent  string `json:"content" binding:"required"`
-}
+import (
+	"errors"
+	"fmt"
+	"gorm.io/gorm"
+)
 
-func ListArticles() ([]Article, error) {
+func ListArticles() (any, error) {
 	var articles []Article
 	res := DB.Raw(getArticles).Scan(&articles)
-	if res.Error != nil {
-		return nil, res.Error
-	}
-	return articles, nil
+	return handleQueryResult(articles, res)
+
 }
 
 func GetArticle(id string) (any, error) {
 	var article struct {
-		Article     string
-		WordsInLine string
-		CharsInWord string
-		PagesNum    string
+		Article     string `json:"content"`
+		WordsInLine string `json:"avg_words_in_line"`
+		CharsInWord string `json:"avg_chars_in_word"`
+		PagesNum    string `json:"avg_pages_num"`
 	}
 	res := DB.Raw(getArticleByID, id).Scan(&article)
-	if res.Error != nil {
-		return "", res.Error
-	}
-	return article, nil
+	return handleQueryResult(article, res)
+
 }
 
-func GetArticleWords(articleID string, wordGroupID string) (any, error) {
+func GetWordsIndex(articleID string, wordGroupName string) (any, error) {
 	var articleWords []struct {
 		Word  string
 		Count int
 		Index string
 	}
-	res := DB.Raw(getArticleWords, articleID).Scan(&articleWords)
-	if res.Error != nil {
-		return nil, res.Error
+	articleFilter := "1=1"
+	if articleID != "" {
+		articleFilter = fmt.Sprintf("a.id = %s", articleID)
 	}
-	return articleWords, nil
+	wordGroupFilter := "1=1"
+	if wordGroupName != "" {
+		wordGroupFilter = fmt.Sprintf(wordsIndexWithWordGroup, wordGroupName)
+	}
+	res := DB.Raw(getWordsIndex, gorm.Expr(articleFilter), gorm.Expr(wordGroupFilter)).Scan(&articleWords)
+	return handleQueryResult(articleWords, res)
+
+}
+
+func GetWordByPosition(articleID string, pageNum string, lineNum string, wordNum string) (any, error) {
+	if articleID == "" || pageNum == "" || lineNum == "" || wordNum == "" {
+		return nil, errors.New("one of the parameters is missing")
+	}
+
+	var word string
+	res := DB.Raw(getWordByPosition, articleID, pageNum, lineNum, wordNum).Scan(&word)
+	return handleQueryResult(word, res)
 }
 
 func CreateArticle(newArticle NewArticle) (any, error) {
@@ -50,22 +60,33 @@ func CreateArticle(newArticle NewArticle) (any, error) {
 		return nil, err
 	}
 
-	res := DB.Create(&articleToInsert)
+	return handleCreate(articleToInsert)
+}
+
+func CreateWordGroup(group WordGroup) (any, error) {
+	return handleCreate(group)
+}
+
+func CreateLinguisticExpr(expr LinguisticExpr) (any, error) {
+	return handleCreate(expr)
+}
+
+func handleCreate(obj any) (any, error) {
+	res := DB.Create(&obj)
 	if res.Error != nil {
 		return nil, res.Error
 	}
-	return articleToInsert, nil
+	return obj, nil
 }
 
-// get article with statistics
-// chars in word/line/page/article, words in line/page, how many times each word appears
-//params: author, publishedAt, title, source
+func handleQueryResult(res any, tx *gorm.DB) (any, error) {
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
 
-// get list of words in article, position for each word
-// params: article, word
+	if tx.RowsAffected == 0 {
+		return nil, errors.New("not found")
+	}
 
-// get a list of words in article, position for each word, only if in word group
-
-// get word by position
-
-// get appearances of an expression in an article
+	return res, nil
+}

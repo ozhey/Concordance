@@ -9,6 +9,7 @@ type Base struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
+
 type Article struct {
 	Base
 	PublishedAt  time.Time     `json:"published_at"`
@@ -44,19 +45,19 @@ type ArticleWord struct {
 
 type WordGroup struct {
 	Base
-	Name  string
-	Words []Word
+	Name  string `json:"name" binding:"required"`
+	Words []Word `json:"words" binding:"required"`
 }
 
 type Word struct {
 	Base
 	WordGroupID uint
-	Text        string
+	Word        string `json:"word" binding:"required"`
 }
 
 type LinguisticExpr struct {
 	Base
-	Expression string
+	Expression string `json:"expression" binding:"required"`
 }
 
 /* rename tables */

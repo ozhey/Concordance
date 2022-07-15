@@ -19,7 +19,7 @@ func SetupDB() error {
 		return err
 	}
 
-	err = DB.AutoMigrate(&Article{}, &ArticleLine{}, &ArticleWord{})
+	err = DB.AutoMigrate(&Article{}, &ArticleLine{}, &ArticleWord{}, &WordGroup{}, &Word{}, &LinguisticExpr{})
 	if err != nil {
 		return err
 	}

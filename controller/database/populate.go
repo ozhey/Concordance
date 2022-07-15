@@ -3,6 +3,7 @@ package database
 import (
 	"errors"
 	"fmt"
+	"gorm.io/gorm"
 	"os"
 	"strings"
 )
@@ -24,6 +25,7 @@ const (
 	contentIndex     = iota
 )
 
+// populateDB creates multiple articles, word groups and linguistic expressions
 func populateDB() error {
 	var articlesToInsert []Article
 	for i := 1; ; i++ {
@@ -44,9 +46,32 @@ func populateDB() error {
 		articlesToInsert = append(articlesToInsert, article)
 	}
 
-	tx := DB.Create(articlesToInsert)
-	if tx.Error != nil {
-		return tx.Error
+	wordGroupToInsert := WordGroup{
+		Name: "Personal Pronouns",
+		Words: []Word{
+			{Word: "i"},
+			{Word: "we"},
+			{Word: "you"},
+			{Word: "he"},
+			{Word: "she"},
+			{Word: "it"},
+			{Word: "they"},
+		},
+	}
+
+	err := DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&articlesToInsert).Error; err != nil {
+			return err
+		}
+
+		if err := tx.Create(&wordGroupToInsert).Error; err != nil {
+			return err
+		}
+
+		return nil
+	})
+	if err != nil {
+		return err
 	}
 
 	return nil
