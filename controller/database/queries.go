@@ -23,6 +23,16 @@ SELECT *
 FROM articles
 `
 
+	getWordGroups = `
+SELECT *
+FROM word_groups
+`
+
+	getLinguisticExprs = `
+SELECT *
+FROM linguistic_exprs
+`
+
 	getWordsIndex = `
 SELECT LOWER(word)                                                      AS word,
        COUNT(word),

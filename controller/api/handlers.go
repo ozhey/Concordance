@@ -11,6 +11,16 @@ func listArticles(c *gin.Context) {
 	handleResponse(c, articles, err)
 }
 
+func listWordGroups(c *gin.Context) {
+	wordGroups, err := db.ListWordGroups()
+	handleResponse(c, wordGroups, err)
+}
+
+func listLinguisticExpr(c *gin.Context) {
+	exprs, err := db.ListLinguisticExpr()
+	handleResponse(c, exprs, err)
+}
+
 func getArticle(c *gin.Context) {
 	article, err := db.GetArticle(c.Params.ByName("id"))
 	handleResponse(c, article, err)

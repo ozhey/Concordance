@@ -10,7 +10,18 @@ func ListArticles() (any, error) {
 	var articles []Article
 	res := DB.Raw(getArticles).Scan(&articles)
 	return handleQueryResult(articles, res)
+}
 
+func ListWordGroups() (any, error) {
+	var wordGroups []WordGroup
+	res := DB.Raw(getWordGroups).Scan(&wordGroups)
+	return handleQueryResult(wordGroups, res)
+}
+
+func ListLinguisticExpr() (any, error) {
+	var lingExprs []LinguisticExpr
+	res := DB.Raw(getLinguisticExprs).Scan(&lingExprs)
+	return handleQueryResult(lingExprs, res)
 }
 
 func GetArticle(id string) (any, error) {

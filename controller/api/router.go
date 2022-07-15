@@ -13,10 +13,10 @@ func SetupRouter() *gin.Engine {
 
 	r.GET("/article_words", getWordByPosition)
 
-	//r.GET("/word_group", listWordGroups)
+	r.GET("/word_group", listWordGroups)
 	r.POST("/word_group", createWordGroup)
 
-	//r.POST("/linguistic_expr", listLinguisticExpr)
+	r.POST("/linguistic_expr", listLinguisticExpr)
 	r.POST("/linguistic_expr", createLinguisticExpr)
 	return r
 }
