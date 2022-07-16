@@ -1,6 +1,6 @@
 package database
 
-// this file contains models for possible request body payloads
+// models for possible request body payloads
 
 type NewArticle struct {
 	Title       string `json:"title" binding:"required"`
@@ -8,4 +8,15 @@ type NewArticle struct {
 	PublishedAt string `json:"published_at" binding:"required"`
 	Source      string `json:"source" binding:"required"`
 	RawContent  string `json:"content" binding:"required"`
+}
+
+// models for possible response bodies
+
+type textLines []struct {
+	Content    string `json:"content"`
+	LineNumber int    `json:"line_number"`
+}
+type wordByPositionResult struct {
+	Lines textLines
+	Word  string
 }

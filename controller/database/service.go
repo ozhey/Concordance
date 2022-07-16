@@ -1,9 +1,11 @@
 package database
 
 import (
-	"errors"
 	"fmt"
+	"github.com/pkg/errors"
 	"gorm.io/gorm"
+	"strconv"
+	"strings"
 )
 
 func ListArticles() (any, error) {
@@ -56,13 +58,52 @@ func GetWordsIndex(articleID string, wordGroupName string) (any, error) {
 }
 
 func GetWordByPosition(articleID string, pageNum string, lineNum string, wordNum string) (any, error) {
-	if articleID == "" || pageNum == "" || lineNum == "" || wordNum == "" {
-		return nil, errors.New("one of the parameters is missing")
+	lineNumInt, err := strconv.Atoi(lineNum)
+	if err != nil {
+		return nil, errors.Wrap(err, "convert line number to int")
+	}
+
+	lines, err := getWordContext(articleID, pageNum, lineNumInt)
+	if err != nil {
+		return nil, err
+	}
+
+	wordNumInt, err := strconv.Atoi(wordNum)
+	if err != nil {
+		return nil, errors.Wrap(err, "convert word number to int")
 	}
 
 	var word string
-	res := DB.Raw(getWordByPosition, articleID, pageNum, lineNum, wordNum).Scan(&word)
-	return handleQueryResult(word, res)
+	for _, line := range lines {
+		if line.LineNumber == lineNumInt {
+			words := strings.Split(line.Content, " ")
+			word = words[wordNumInt-1]
+		}
+	}
+	return wordByPositionResult{
+		Lines: lines,
+		Word:  word,
+	}, nil
+}
+
+func getWordContext(articleID string, pageNum string, lineNumInt int) (textLines, error) {
+	linesToGet := fmt.Sprintf("(%d,%d,%d)", lineNumInt-1, lineNumInt, lineNumInt+1)
+	if lineNumInt%10 == 1 { // first line in page
+		linesToGet = fmt.Sprintf("(%d,%d)", lineNumInt, lineNumInt+1)
+	} else if lineNumInt%10 == 0 { // last line in page
+		linesToGet = fmt.Sprintf("(%d,%d)", lineNumInt-1, lineNumInt)
+	}
+
+	lines := textLines{}
+	tx := DB.Raw(getContextByPosition, articleID, pageNum, gorm.Expr(linesToGet)).Scan(&lines)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	if tx.RowsAffected == 0 {
+		return nil, errors.New("not found")
+	}
+	return lines, nil
 }
 
 func CreateArticle(newArticle NewArticle) (any, error) {

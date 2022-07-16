@@ -63,4 +63,15 @@ WHERE a.id = ?
   AND page_number = ?
   AND line_number = ?
   AND word_number = ?`
+
+	getContextByPosition = `
+SELECT line_number, string_agg(word, ' ') AS content
+FROM article_words aw
+         JOIN article_lines al ON al.id = aw.article_line_id
+         JOIN article_pages ap ON ap.id = al.article_page_id
+         JOIN articles a ON a.id = ap.article_id
+WHERE a.id = ?
+  AND page_number = ?
+  AND line_number IN ?
+GROUP BY line_number`
 )

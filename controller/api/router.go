@@ -16,7 +16,7 @@ func SetupRouter() *gin.Engine {
 	r.GET("/word_group", listWordGroups)
 	r.POST("/word_group", createWordGroup)
 
-	r.POST("/linguistic_expr", listLinguisticExpr)
+	r.GET("/linguistic_expr", listLinguisticExpr)
 	r.POST("/linguistic_expr", createLinguisticExpr)
 	return r
 }
