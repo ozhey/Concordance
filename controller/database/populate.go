@@ -59,12 +59,20 @@ func populateDB() error {
 		},
 	}
 
+	lingToInsert := LinguisticExpr{
+		Expression: "a letter",
+	}
+
 	err := DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&articlesToInsert).Error; err != nil {
 			return err
 		}
 
 		if err := tx.Create(&wordGroupToInsert).Error; err != nil {
+			return err
+		}
+
+		if err := tx.Create(&lingToInsert).Error; err != nil {
 			return err
 		}
 

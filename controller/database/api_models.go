@@ -16,7 +16,14 @@ type textLines []struct {
 	Content    string `json:"content"`
 	LineNumber int    `json:"line_number"`
 }
-type wordByPositionResult struct {
+type wordByPositionRes struct {
 	Lines textLines
 	Word  string
+}
+
+type wordsRes []struct {
+	PageNumber int
+	LineNumber int
+	WordNumber int
+	Word       string
 }

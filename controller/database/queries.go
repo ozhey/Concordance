@@ -2,6 +2,16 @@ package database
 
 const (
 	getArticleByID = `
+SELECT page_number, line_number, word_number, word
+FROM article_words
+         JOIN article_lines al ON al.id = article_words.article_line_id
+         JOIN article_pages ap ON al.article_page_id = ap.id
+         JOIN articles a ON ap.article_id = a.id
+WHERE a.id = ?
+ORDER BY page_number, line_number, word_number
+`
+
+	getRawArticleByID = `
 SELECT string_agg(article_lines.line, E'\n') as article,
        AVG(words_in_line)                    AS words_in_line,
        AVG(chars_in_word)                    AS chars_in_word,

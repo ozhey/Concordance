@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	db "github.com/ozhey/concordance/controller/database"
 	"net/http"
+	"strconv"
 )
 
 func listArticles(c *gin.Context) {
@@ -67,6 +68,28 @@ func createLinguisticExpr(c *gin.Context) {
 
 	article, err := db.CreateLinguisticExpr(body)
 	handleResponse(c, article, err)
+}
+
+func addWordToWordGroup(c *gin.Context) {
+	var body db.Word
+	err := c.BindJSON(&body)
+	if err != nil {
+		handleResponse(c, nil, err)
+	}
+
+	wordGroupId, err := strconv.Atoi(c.Params.ByName("id"))
+	if err != nil {
+		handleResponse(c, nil, err)
+	}
+
+	body.WordGroupID = uint(wordGroupId)
+	article, err := db.AddWordToWordGroup(body)
+	handleResponse(c, article, err)
+}
+
+func getLingExprPos(c *gin.Context) {
+	exprPos, err := db.GetLingExprPos(c.Params.ByName("id"), c.Query("expr"))
+	handleResponse(c, exprPos, err)
 }
 
 func handleResponse(c *gin.Context, res any, err error) {

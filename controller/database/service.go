@@ -33,7 +33,7 @@ func GetArticle(id string) (any, error) {
 		CharsInWord string `json:"avg_chars_in_word"`
 		PagesNum    string `json:"avg_pages_num"`
 	}
-	res := DB.Raw(getArticleByID, id).Scan(&article)
+	res := DB.Raw(getRawArticleByID, id).Scan(&article)
 	return handleQueryResult(article, res)
 
 }
@@ -80,7 +80,7 @@ func GetWordByPosition(articleID string, pageNum string, lineNum string, wordNum
 			word = words[wordNumInt-1]
 		}
 	}
-	return wordByPositionResult{
+	return wordByPositionRes{
 		Lines: lines,
 		Word:  word,
 	}, nil
@@ -88,12 +88,6 @@ func GetWordByPosition(articleID string, pageNum string, lineNum string, wordNum
 
 func getWordContext(articleID string, pageNum string, lineNumInt int) (textLines, error) {
 	linesToGet := fmt.Sprintf("(%d,%d,%d)", lineNumInt-1, lineNumInt, lineNumInt+1)
-	if lineNumInt%10 == 1 { // first line in page
-		linesToGet = fmt.Sprintf("(%d,%d)", lineNumInt, lineNumInt+1)
-	} else if lineNumInt%10 == 0 { // last line in page
-		linesToGet = fmt.Sprintf("(%d,%d)", lineNumInt-1, lineNumInt)
-	}
-
 	lines := textLines{}
 	tx := DB.Raw(getContextByPosition, articleID, pageNum, gorm.Expr(linesToGet)).Scan(&lines)
 	if tx.Error != nil {
@@ -121,6 +115,42 @@ func CreateWordGroup(group WordGroup) (any, error) {
 
 func CreateLinguisticExpr(expr LinguisticExpr) (any, error) {
 	return handleCreate(expr)
+}
+
+func AddWordToWordGroup(word Word) (any, error) {
+	return handleCreate(word)
+}
+
+func GetLingExprPos(articleId string, expr string) (any, error) {
+	var words wordsRes
+	tx := DB.Raw(getArticleByID, articleId).Scan(&words)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	if tx.RowsAffected == 0 {
+		return nil, errors.New("not found")
+	}
+
+	return getExprOccurrences(words, expr), nil
+}
+
+func getExprOccurrences(words wordsRes, expr string) wordsRes {
+	exprList := strings.Split(expr, " ")
+	matches := wordsRes{}
+	for i := 0; i <= len(words)-len(exprList); i++ {
+		j := 0
+		for j < len(exprList) {
+			if words[i+j].Word != exprList[j] {
+				break
+			}
+			j += 1
+		}
+		if j == len(exprList) {
+			matches = append(matches, words[i])
+		}
+	}
+	return matches
 }
 
 func handleCreate(obj any) (any, error) {
