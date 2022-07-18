@@ -17,7 +17,7 @@ type Article struct {
 	Title        string        `json:"title"`
 	Source       string        `json:"source"`
 	ArticlePages []ArticlePage `json:",omitempty"`
-	PagesCount   int
+	PagesCount   int           `json:"pages_count"`
 }
 
 type ArticlePage struct {

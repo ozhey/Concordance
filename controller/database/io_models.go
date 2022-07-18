@@ -17,13 +17,13 @@ type textLines []struct {
 	LineNumber int    `json:"line_number"`
 }
 type wordByPositionRes struct {
-	Lines textLines
-	Word  string
+	Lines textLines `json:"lines"`
+	Word  string    `json:"word"`
 }
 
 type wordsRes []struct {
-	PageNumber int
-	LineNumber int
-	WordNumber int
-	Word       string
+	PageNumber int    `json:"page_number"`
+	LineNumber int    `json:"line_number"`
+	WordNumber int    `json:"word_number"`
+	Word       string `json:"word"`
 }
