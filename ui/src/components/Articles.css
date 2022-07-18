@@ -1,0 +1,27 @@
+.articles {
+    margin-top: 60px;
+    padding: 20px;
+}
+
+.article_card {
+    border-radius: 20px;
+    padding: 30px;
+    margin: 10px;
+    background-color: white;
+    z-index: 100;
+}
+
+.article_card:hover {
+    cursor: pointer;
+}
+
+.article_card__title {
+    margin-bottom: 20px;
+}
+
+.article_card__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: small;
+}
