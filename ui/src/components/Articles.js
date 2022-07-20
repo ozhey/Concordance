@@ -28,20 +28,19 @@ function Articles() {
     function handleCardClick(articleID) {
         setSelectedArticleID(articleID)
     }
-    const articleCards = articles.map(article => <ArticleCard key={article.ID} article={article} onClick={() => handleCardClick(article.ID)} />)
+
+    const articleCards = articles.map(article => <ArticleCard key={article.ID} article={article}
+                                                              onClick={() => handleCardClick(article.ID)}/>)
 
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (isLoading) {
         return <div>Loading...</div>;
     } else if (selectedArticleID !== 0) {
-        return <ArticlePage id={selectedArticleID}> </ArticlePage>
+        return <ArticlePage
+            articleMeta={articles.filter((article) => (article.ID === selectedArticleID))[0]}> </ArticlePage>
     } else {
-        return (
-            <section className="articles" >
-                {articles.length ? articleCards : <div>No articles found</div>}
-            </section>
-        );
+        return articles.length ? articleCards : <div>No articles found</div>
     }
 }
 
