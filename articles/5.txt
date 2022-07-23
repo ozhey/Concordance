@@ -7,27 +7,34 @@ Source: CNN
 
 A bipartisan group of senators reached a deal to make it harder to overturn a certified presidential election, marking the most significant response by Congress to former President Donald Trump's relentless pressure campaign to overturn the results of the 2020 presidential election.
 
-The proposal still needs to be approved by both chambers and will need 60 votes in the Senate to break any filibuster attempt, meaning at least 10 Republicans would be needed to support any legislation. Announcement of the plan kicks off what is expected to be a challenging, months-long process to get the deal passed into law before the end of the year.
+The proposal still needs to be approved by both chambers and will need 60 votes in the Senate to break any filibuster attempt, meaning at least 10 Republicans would be needed to support any legislation.
+Announcement of the plan kicks off what is expected to be a challenging, months-long process to get the deal passed into law before the end of the year.
 
-The deal is the culmination of months of negotiation led by Republican Sen. Susan Collins of Maine and Democratic Sen. Joe Manchin of West Virginia, along with an additional six Democrats and eight Republicans. The proposal unveiled Wednesday is split up into two bills.
+The deal is the culmination of months of negotiation led by Republican Sen. Susan Collins of Maine and Democratic Sen. Joe Manchin of West Virginia, along with an additional six Democrats and eight Republicans.
+The proposal unveiled Wednesday is split up into two bills.
 
-One of the bills is focused on modernizing and overhauling the Electoral Count Act, an 1887 law that Trump had sought to exploit and create confusion over how Congress counts Electoral College votes from each state. As part of that proposal, senators are attempting to clarify that the vice president only has a ceremonial role in overseeing the certification of the electoral results.
+One of the bills is focused on modernizing and overhauling the Electoral Count Act, an 1887 law that Trump had sought to exploit and create confusion over how Congress counts Electoral College votes from each state.
+As part of that proposal, senators are attempting to clarify that the vice president only has a ceremonial role in overseeing the certification of the electoral results.
 
 The proposal also includes key provisions intended to promote an orderly transition of presidential power by outlining guidelines for when eligible candidates can receive federal resources for a transition into office.
 
-If neither candidate concedes within five days of Election Day, both candidates would be able to receive access to federal transition resources until "it is substantially certain who will win the majority of electoral votes," according to a fact sheet. Ultimately, only one candidate will be eligible when there is "a clear winner of the election."
+If neither candidate concedes within five days of Election Day, both candidates would be able to receive access to federal transition resources until "it is substantially certain who will win the majority of electoral votes," according to a fact sheet.
+Ultimately, only one candidate will be eligible when there is "a clear winner of the election."
 
 Amid revelations of an effort by Trump allies to put forward illegitimate electors in key states, the bill tries to prevent a similar situation from happening again in the future.
 
-It would also make it harder for members of Congress to attempt to overturn an election by increasing the number of House and Senate members required to raise an objection to election results when a joint session of Congress meets to certify them. Under current law, just one senator can join one House member in forcing each side to vote on whether to throw out results subject to an objection.
+It would also make it harder for members of Congress to attempt to overturn an election by increasing the number of House and Senate members required to raise an objection to election results when a joint session of Congress meets to certify them.
+Under current law, just one senator can join one House member in forcing each side to vote on whether to throw out results subject to an objection.
 
 The bill is co-sponsored by the nine Republicans and seven Democrats who announced the deal.
 
 According to the fact sheet, the proposal dealing with the vice president's role would make clear that the responsibility is "solely ministerial and that he or she does not have any power to solely determine, accept, reject, or otherwise adjudicate disputes over electors."
 
-The second bill is aimed at improving election security and would enhance federal penalties for anyone who threatens or intimidates election officials as well as increase penalties for the tampering with election records. The bill is co-sponsored by five Republicans and seven Democrats.
+The second bill is aimed at improving election security and would enhance federal penalties for anyone who threatens or intimidates election officials as well as increase penalties for the tampering with election records.
+The bill is co-sponsored by five Republicans and seven Democrats.
 
-While constitutional experts say the vice president currently can't disregard a state-certified electoral result, Trump pushed then-Vice President Mike Pence to obstruct the Electoral College certification in Congress as part of his pressure campaign. But Pence refused to do so and, as a result, became a target of the former President and his mob of supporters who stormed the Capitol on January 6, 2021.
+While constitutional experts say the vice president currently can't disregard a state-certified electoral result, Trump pushed then-Vice President Mike Pence to obstruct the Electoral College certification in Congress as part of his pressure campaign.
+But Pence refused to do so and, as a result, became a target of the former President and his mob of supporters who stormed the Capitol on January 6, 2021.
 
 Democratic Sen. Mark Warner of Virginia said the bill would make it harder to overturn an election when a joint session of Congress convenes to certify a presidential election.
 
@@ -41,7 +48,10 @@ The bill that seeks to overhaul the Electoral Count Act would include a number o
 
 This comes as revelations surface about an effort by Trump allies to subvert the Electoral College process and install fake GOP electors in seven swing states.
 
-The newly unveiled deal creates a set of stipulations designed to make it harder for there to be any confusion over the accurate electors. For example, it states that each state's governor would be responsible for submission of a certificate that identifies electors. Congress would not be able to accept a slate of electors submitted by any other official. "This reform would address the potential for multiple state officials to send Congress competing slates," the fact sheet states.
+The newly unveiled deal creates a set of stipulations designed to make it harder for there to be any confusion over the accurate electors.
+For example, it states that each state's governor would be responsible for submission of a certificate that identifies electors.
+Congress would not be able to accept a slate of electors submitted by any other official.
+"This reform would address the potential for multiple state officials to send Congress competing slates," the fact sheet states.
 
 The bill would also set a higher bar for members of Congress to be able to raise objections to the certification of electoral votes.
 
