@@ -1,8 +1,9 @@
 .article_card {
     border-radius: 20px;
     padding: 30px;
-    margin: 10px;
+    margin: 10px 0;
     background-color: white;
+    border: 1px solid RGB(0, 0, 0, 0.07);
 }
 
 .article_card:hover {
@@ -26,6 +27,10 @@
 
 .article__content {
     margin-top: 20px;
+}
+
+.article__content p {
+    margin: 5px 0;
 }
 
 .article__buttons {
