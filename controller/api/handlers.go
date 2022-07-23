@@ -33,7 +33,7 @@ func getWordsIndex(c *gin.Context) {
 }
 
 func getWordByPosition(c *gin.Context) {
-	word, err := db.GetWordByPosition(c.Query("article_id"), c.Query("page_num"), c.Query("line_num"), c.Query("word_num"))
+	word, err := db.GetWordByPosition(c.Query("article_id"), c.Query("line_num"), c.Query("word_num"))
 	handleResponse(c, word, err)
 }
 

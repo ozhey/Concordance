@@ -13,13 +13,13 @@ func SetupRouter() *gin.Engine {
 		AllowHeaders: []string{"Content-Type,access-control-allow-origin, access-control-allow-headers"},
 	}))
 
-	r.POST("/articles", createArticle)
 	r.GET("/articles", listArticles)
-	r.GET("/articles/index", getWordsIndex)
+	r.POST("/articles", createArticle)
 	r.GET("/articles/:id", getArticle)
 	r.GET("/articles/:id/ling_expr_pos", getLingExprPos)
 
 	r.GET("/article_words", getWordByPosition)
+	r.GET("/article_words/index", getWordsIndex)
 
 	r.GET("/word_group", listWordGroups)
 	r.POST("/word_group", createWordGroup)
