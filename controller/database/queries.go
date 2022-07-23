@@ -55,7 +55,7 @@ FROM article_words aw
 WHERE ?
   AND ?
 GROUP BY LOWER(word)
-ORDER BY COUNT(word) DESC`
+ORDER BY word`
 
 	wordsIndexWithWordGroup = `
 LOWER(word) IN (SELECT w.word
@@ -81,7 +81,6 @@ FROM article_words aw
          JOIN article_pages ap ON ap.id = al.article_page_id
          JOIN articles a ON a.id = ap.article_id
 WHERE a.id = ?
-  AND page_number = ?
   AND line_number IN ?
 GROUP BY line_number`
 )

@@ -38,32 +38,32 @@ func GetArticle(id string) (any, error) {
 
 }
 
-func GetWordsIndex(articleID string, wordGroupName string) (any, error) {
+func GetWordsIndex(articleID string, wordGroupId string) (any, error) {
 	var articleWords []struct {
-		Word  string
-		Count int
-		Index string
+		Word  string `json:"word"`
+		Count int    `json:"count"`
+		Index string `json:"index"`
 	}
 	articleFilter := "1=1"
 	if articleID != "" {
 		articleFilter = fmt.Sprintf("a.id = %s", articleID)
 	}
 	wordGroupFilter := "1=1"
-	if wordGroupName != "" {
-		wordGroupFilter = fmt.Sprintf(wordsIndexWithWordGroup, wordGroupName)
+	if wordGroupId != "" {
+		wordGroupFilter = fmt.Sprintf(wordsIndexWithWordGroup, wordGroupId)
 	}
 	res := DB.Raw(getWordsIndex, gorm.Expr(articleFilter), gorm.Expr(wordGroupFilter)).Scan(&articleWords)
 	return handleQueryResult(articleWords, res)
 
 }
 
-func GetWordByPosition(articleID string, pageNum string, lineNum string, wordNum string) (any, error) {
+func GetWordByPosition(articleID string, lineNum string, wordNum string) (any, error) {
 	lineNumInt, err := strconv.Atoi(lineNum)
 	if err != nil {
 		return nil, errors.Wrap(err, "convert line number to int")
 	}
 
-	lines, err := getWordContext(articleID, pageNum, lineNumInt)
+	lines, err := getWordContext(articleID, lineNumInt)
 	if err != nil {
 		return nil, err
 	}
@@ -86,10 +86,10 @@ func GetWordByPosition(articleID string, pageNum string, lineNum string, wordNum
 	}, nil
 }
 
-func getWordContext(articleID string, pageNum string, lineNumInt int) (textLines, error) {
+func getWordContext(articleID string, lineNumInt int) (textLines, error) {
 	linesToGet := fmt.Sprintf("(%d,%d,%d)", lineNumInt-1, lineNumInt, lineNumInt+1)
 	lines := textLines{}
-	tx := DB.Raw(getContextByPosition, articleID, pageNum, gorm.Expr(linesToGet)).Scan(&lines)
+	tx := DB.Raw(getContextByPosition, articleID, gorm.Expr(linesToGet)).Scan(&lines)
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
