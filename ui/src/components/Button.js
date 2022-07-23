@@ -1,9 +1,13 @@
-import './Button.css';
+import '../styles/Button.css';
 
-function Button({onClick, children}) {
+function Button({onClick, size, children}) {
+    let className = "btn"
+    if (size === "small") {
+        className += " btn--small"
+    }
 
     return (
-        <button className="button" onClick={onClick}>{children}</button>
+        <button className={className} onClick={onClick}>{children}</button>
     );
 }
 

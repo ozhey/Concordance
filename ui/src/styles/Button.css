@@ -1,12 +1,17 @@
-.button {
+.btn {
     cursor: pointer;
     padding: 10px;
     width: 160px;
-    border: 1px solid RGB(0,0,0,0.3);
+    border: 1px solid RGB(0, 0, 0, 0.3);
     border-radius: 5px;
     background-color: white;
 }
 
-.button:hover {
+.btn--small {
+    width: 120px;
+    padding: 8px;
+}
+
+.btn:hover {
     background-color: #f9f9f9;
 }
