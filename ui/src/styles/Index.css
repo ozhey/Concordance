@@ -12,7 +12,7 @@
     align-items: center;
     grid-gap: 10px;
     padding: 10px;
-    background-color: #eefbff;
+    background-color: #ffffff;
     border-radius: 5px;
     border: 1px solid RGB(0, 0, 0, 0.1);
 }
@@ -38,6 +38,6 @@
 
 .index__word__row--clickable:hover {
     cursor: pointer;
-    background-color: #dcecf3;
+    background-color: #e6eff5;
 
 }
