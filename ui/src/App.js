@@ -1,13 +1,28 @@
 import './App.css';
 import Navbar from "./components/Navbar";
 import Articles from "./components/Articles";
+import {useState} from "react";
+import ContentManager from "./components/ContentManager/ContentManager";
 
 function App() {
+    const [page, setPage] = useState("articles")
+
+    let pageToRender
+    switch (page) {
+        case "index":
+            break
+        case "create":
+            pageToRender = <ContentManager />
+            break
+        default:
+            pageToRender = <Articles />
+    }
+
     return (
         <div className="app">
-            <Navbar/>
+            <Navbar setPage={setPage} page={page}/>
             <div className="page-container">
-                <Articles/>
+                {pageToRender}
             </div>
         </div>
     );

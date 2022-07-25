@@ -1,6 +1,6 @@
 import '../../styles/Articles.css';
 import consts from "../../consts";
-import useFetch from "../../custom_hooks/useFetch";
+import useFetch from "../../api/useFetch";
 
 function ArticleContent({articleId}) {
     const [article, isLoading, error] = useFetch(`${consts.API_ADDRESS}/articles/${articleId}`)

@@ -1,7 +1,6 @@
 import '../styles/ContextWindow.css';
 
 const Highlighted = ({text = "", highlight = ""}) => {
-    console.log(text, highlight)
     const regex = new RegExp(`([^a-zA-Z0-9]${highlight}[^a-zA-Z0-9])`, "g");
     const parts = text.split(regex);
 

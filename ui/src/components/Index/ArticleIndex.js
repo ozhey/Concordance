@@ -1,6 +1,6 @@
 import '../../styles/Index.css';
 import consts from "../../consts";
-import useFetch from "../../custom_hooks/useFetch";
+import useFetch from "../../api/useFetch";
 import IndexWord from "./IndexWord";
 import {useState} from "react";
 import ContextWindow from "../ContextWindow";

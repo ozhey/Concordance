@@ -1,6 +1,6 @@
 import consts from "../consts";
 import '../styles/ContextWindow.css';
-import useFetch from "../custom_hooks/useFetch";
+import useFetch from "../api/useFetch";
 import Button from "./Button";
 import {useEffect, useState} from "react";
 import Highlighted from "./Highlighted";

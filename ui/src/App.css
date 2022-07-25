@@ -1,5 +1,6 @@
 .app {
     background-color: #e6eff5;
+    min-height: calc(100vh - 60px);
 }
 
 .page-container {

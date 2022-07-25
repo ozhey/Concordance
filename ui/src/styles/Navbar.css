@@ -11,10 +11,14 @@
 .navbar__item {
     display: flex;
     align-items: center;
-    margin: 0 15px;
-    font-weight: bold;
+    margin: 0 20px;
+    font-weight: 500;
     color: gray;
     cursor: pointer;
+}
+
+.navbar__item--black {
+    color: black;
 }
 
 .navbar__item:hover {

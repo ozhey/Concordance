@@ -3,7 +3,7 @@ import ArticleCard from "./ArticleCard";
 import {useState} from "react";
 import consts from '../consts.js'
 import ArticlePage from "./ArticlePage/ArticlePage";
-import useFetch from "../custom_hooks/useFetch";
+import useFetch from "../api/useFetch";
 
 function Articles() {
     const [selectedArticleID, setSelectedArticleID] = useState(0)
@@ -28,7 +28,7 @@ function Articles() {
     } else {
         return (articles !== null && articles.length) ?
             <div>
-                <h1>Articles</h1>
+                <h1 style={{textAlign:"center", fontSize:"xxx-large"}}>Articles</h1>
                 {articleCards}
             </div> :
             <div>No articles found</div>
