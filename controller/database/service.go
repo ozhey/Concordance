@@ -106,19 +106,39 @@ func CreateArticle(newArticle NewArticle) (any, error) {
 		return nil, err
 	}
 
-	return handleCreate(articleToInsert)
+	res := DB.Create(&articleToInsert)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return articleToInsert, nil
 }
 
 func CreateWordGroup(group WordGroup) (any, error) {
-	return handleCreate(group)
+	res := DB.Create(&group)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return group, nil
 }
 
 func CreateLinguisticExpr(expr LinguisticExpr) (any, error) {
-	return handleCreate(expr)
+	res := DB.Create(&expr)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return expr, nil
 }
 
 func AddWordToWordGroup(word Word) (any, error) {
-	return handleCreate(word)
+	res := DB.Create(&word)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return word, nil
 }
 
 func GetLingExprPos(articleId string, expr string) (any, error) {
@@ -151,14 +171,6 @@ func getExprOccurrences(words wordsRes, expr string) wordsRes {
 		}
 	}
 	return matches
-}
-
-func handleCreate(obj any) (any, error) {
-	res := DB.Create(&obj)
-	if res.Error != nil {
-		return nil, res.Error
-	}
-	return obj, nil
 }
 
 func handleQueryResult(res any, tx *gorm.DB) (any, error) {

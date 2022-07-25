@@ -55,8 +55,8 @@ func createWordGroup(c *gin.Context) {
 		handleResponse(c, nil, err)
 	}
 
-	article, err := db.CreateWordGroup(body)
-	handleResponse(c, article, err)
+	wg, err := db.CreateWordGroup(body)
+	handleResponse(c, wg, err)
 }
 
 func createLinguisticExpr(c *gin.Context) {

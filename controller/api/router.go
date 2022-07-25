@@ -21,11 +21,11 @@ func SetupRouter() *gin.Engine {
 	r.GET("/article_words", getWordByPosition)
 	r.GET("/article_words/index", getWordsIndex)
 
-	r.GET("/word_group", listWordGroups)
-	r.POST("/word_group", createWordGroup)
-	r.POST("/word_group/:id", addWordToWordGroup)
+	r.GET("/word_groups", listWordGroups)
+	r.POST("/word_groups", createWordGroup)
+	r.POST("/word_groups/:id", addWordToWordGroup)
 
-	r.GET("/ling_expr", listLinguisticExpr)
-	r.POST("/ling_expr", createLinguisticExpr)
+	r.GET("/ling_exprs", listLinguisticExpr)
+	r.POST("/ling_exprs", createLinguisticExpr)
 	return r
 }
