@@ -8,7 +8,10 @@ function ArticleContent({articleId}) {
     let lineElems
     if (article["content"]) {
         const articleLines = article["content"].split("\n")
-        lineElems = articleLines.map((line, i) => <p key={i}><b style={{marginRight:"2px"}}>{i+1} </b>{line}</p>)
+        lineElems = articleLines.map((line, i) => <p key={i}><b style={{marginRight: "2px"}}>{i + 1} </b>{line}</p>)
+        for (let i = 0; i < lineElems.length; i += 10) {
+            lineElems.splice(i, 0, <h4 style={{margin: "10px 0px"}}>{`Page ${i / 10 + 1}`}</h4>);
+        }
     }
 
     if (error) {
@@ -16,9 +19,9 @@ function ArticleContent({articleId}) {
     } else if (isLoading) {
         return <div>Loading...</div>;
     } else {
-        return <div className="article__content">
+        return <section className="article__content">
             {lineElems}
-        </div>
+        </section>
     }
 }
 

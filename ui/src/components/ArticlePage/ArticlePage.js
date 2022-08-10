@@ -12,16 +12,16 @@ function ArticlePage({articleMeta}) {
         setArticleView(view)
     }
 
-    let articleBody = null
+    let articleBody
     switch (articleView) {
-        case "content":
-            articleBody = <ArticleContent articleId={articleMeta["ID"]}/>
-            break
         case "index":
             articleBody = <ArticleIndex articleId={articleMeta["ID"]}/>
             break
         case "lingExpr":
             articleBody = <ArticleLing articleId={articleMeta["ID"]}/>
+            break
+        default:
+            articleBody = <ArticleContent articleId={articleMeta["ID"]}/>
     }
 
     return (

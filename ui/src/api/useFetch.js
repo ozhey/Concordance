@@ -17,7 +17,7 @@ export default function useFetch(url, options, expect={}, deps) {
                     setIsLoading(false);
                 }
             )
-    }, [deps]);
+    }, [url, options, deps]);
 
     return [response, isLoading, error];
 };

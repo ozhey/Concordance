@@ -26,7 +26,7 @@ function ContextWindow({pos, expr}) {
     function handleArrowClick(delta) {
         setCurrPos((prevPos) => {
             const newLineNum = parseInt(prevPos["line"]) + delta
-            if ((newLineNum === 0 && delta === -1) ) {
+            if ((newLineNum === 0 && delta === -1) || (lines.length === 1 && delta === 1) ) {
                 return prevPos
             }
             return {
