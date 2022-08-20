@@ -6,7 +6,7 @@ import {useState} from "react";
 import ContextWindow from "../ContextWindow";
 import {useForm} from "react-hook-form";
 
-function ArticleIndex({articleId}) {
+function ArticleIndex({articleId = ""}) {
     const [selectedWord, setSelectedWord] = useState(null)
     const {register, handleSubmit} = useForm();
     const [wordGroupID, setWordGroupID] = useState("")

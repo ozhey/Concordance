@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Articles from "./components/Articles";
 import {useState} from "react";
 import ContentManager from "./components/ContentManager/ContentManager";
+import ArticleIndex from "./components/Index/ArticleIndex";
 
 function App() {
     const [page, setPage] = useState("articles")
@@ -10,6 +11,7 @@ function App() {
     let pageToRender
     switch (page) {
         case "index":
+            pageToRender = <ArticleIndex />
             break
         case "create":
             pageToRender = <ContentManager />
