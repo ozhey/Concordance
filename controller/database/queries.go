@@ -63,17 +63,6 @@ LOWER(word) IN (SELECT w.word
                                JOIN words w ON wg.id = w.word_group_id
                       WHERE wg.id = %s)`
 
-	getWordByPosition = `
-SELECT word
-FROM article_words
-         JOIN article_lines al ON al.id = article_words.article_line_id
-         JOIN article_pages ap ON ap.id = al.article_page_id
-         JOIN articles a ON a.id = ap.article_id
-WHERE a.id = ?
-  AND page_number = ?
-  AND line_number = ?
-  AND word_number = ?`
-
 	getContextByPosition = `
 SELECT line_number, string_agg(word, ' ') AS content
 FROM article_words aw
