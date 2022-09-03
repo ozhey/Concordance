@@ -1,4 +1,4 @@
-import "../../styles/ContentManager.css"
+import "../../styles/Forms.css"
 import {useForm} from "react-hook-form";
 import consts from "../../consts";
 import post from "../../api/post";

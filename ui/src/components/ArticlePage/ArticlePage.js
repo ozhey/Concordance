@@ -2,7 +2,7 @@ import '../../styles/Articles.css';
 import Button from "../Button";
 import ArticleContent from "./ArticleContent";
 import {useState} from "react";
-import ArticleIndex from "../Index/ArticleIndex";
+import Index from "../Index/Index";
 import ArticleLing from "./ArticleLing";
 
 function ArticlePage({articleMeta}) {
@@ -15,7 +15,7 @@ function ArticlePage({articleMeta}) {
     let articleBody
     switch (articleView) {
         case "index":
-            articleBody = <ArticleIndex articleId={articleMeta["ID"]}/>
+            articleBody = <Index articleId={articleMeta["ID"]}/>
             break
         case "lingExpr":
             articleBody = <ArticleLing articleId={articleMeta["ID"]}/>

@@ -10,7 +10,7 @@ function ArticleContent({articleId}) {
         const articleLines = article["content"].split("\n")
         lineElems = articleLines.map((line, i) => <p key={i}><b style={{marginRight: "2px"}}>{i + 1} </b>{line}</p>)
         for (let i = 0; i < lineElems.length; i += 10) {
-            lineElems.splice(i, 0, <h4 style={{margin: "10px 0px"}}>{`Page ${i / 10 + 1}`}</h4>);
+            lineElems.splice(i, 0, <h4 key={lineElems.length+1} style={{margin: "10px 0px"}}>{`Page ${i / 10 + 1}`}</h4>);
         }
     }
 

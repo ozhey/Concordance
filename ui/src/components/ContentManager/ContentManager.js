@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "../../styles/ContentManager.css"
+import "../../styles/Forms.css"
 import Button from "../Button";
 import CreateArticle from "./CreateArticle";
 import CreateLingExpr from "./CreateLingExpr";
