@@ -4,9 +4,13 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
+	"log"
 	"strconv"
 	"strings"
+	"time"
 )
+
+const dropTables = "DROP TABLE article_words; DROP TABLE article_lines; DROP TABLE article_pages; DROP TABLE articles; DROP TABLE words; DROP TABLE word_groups; DROP TABLE linguistic_exprs;"
 
 func ListArticles() (any, error) {
 	var articles []Article
@@ -171,6 +175,64 @@ func getExprOccurrences(words wordsRes, expr string) wordsRes {
 		}
 	}
 	return matches
+}
+
+func BenchmarkQuery(replicates int, dbSize int) (any, error) {
+	insertionTime, err := duplicateDB(dbSize)
+	if err != nil {
+		return nil, err
+	}
+
+	randomArticle := &Article{}
+	res := DB.First(randomArticle)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	log.Printf("queries benchmark: starting, fetched random article (id: %d)", randomArticle.ID)
+	totalTime := 0
+	var results []int
+	for i := 0; i < replicates; i++ {
+		start := time.Now()
+		if _, err := GetWordsIndex(strconv.Itoa(int(randomArticle.ID)), ""); err != nil {
+			return nil, err
+		}
+		elapsed := int(time.Since(start).Milliseconds())
+		totalTime += elapsed
+		results = append(results, elapsed)
+	}
+	log.Printf("queries benchmark: finished")
+
+	if err := resetDB(); err != nil {
+		return nil, err
+	}
+
+	return benchmarkRes{InsertionTime: insertionTime, AverageQueryTime: totalTime / replicates, DiscreteQueryTimes: results}, nil
+}
+
+func resetDB() error {
+	log.Printf("reset db: dropping tables")
+	if res := DB.Exec(dropTables); res.Error != nil {
+		return res.Error
+	}
+	log.Printf("reset db: recreating tables and constraints")
+	err := DB.AutoMigrate(&Article{}, &ArticleLine{}, &ArticleWord{}, &WordGroup{}, &Word{}, &LinguisticExpr{})
+	if err != nil {
+		return err
+	}
+	return populateDB()
+}
+
+func duplicateDB(dbSizeDuplicate int) (int, error) {
+	start := time.Now()
+	for i := 0; i < dbSizeDuplicate; i++ {
+		if err := populateDB(); err != nil {
+			return 0, err
+		}
+		log.Printf("duplicate db: now %dx bigger", i+1)
+	}
+	return int(time.Since(start).Milliseconds()), nil
+
 }
 
 func handleQueryResult(res any, tx *gorm.DB) (any, error) {

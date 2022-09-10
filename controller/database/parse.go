@@ -42,7 +42,6 @@ func getArticlePages(rawLines []string) []ArticlePage {
 }
 
 func parseLines(rawLines []string) (articleLines []ArticleLine) {
-	//r := strings.NewReplacer(",", "", ".", "", "'", "", "\n", "", "\"", "") // remove unwanted chars
 	for i, line := range rawLines {
 		var lineWords []ArticleWord
 		words := strings.Split(line, " ")

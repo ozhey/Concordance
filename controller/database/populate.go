@@ -4,10 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"gorm.io/gorm"
-	"log"
 	"os"
 	"strings"
-	"time"
 )
 
 const (
@@ -29,7 +27,6 @@ const (
 
 // populateDB creates multiple articles, word groups and linguistic expressions
 func populateDB() error {
-	start := time.Now()
 	var articlesToInsert []Article
 	for i := 1; ; i++ {
 		articlePath := fmt.Sprintf("%s/%d.txt", articlesPath, i)
@@ -66,8 +63,6 @@ func populateDB() error {
 		Expression: "a letter",
 	}
 
-	log.Printf("Parsing took %s", time.Since(start))
-	start = time.Now()
 	err := DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.CreateInBatches(&articlesToInsert, 5).Error; err != nil {
 			return err
@@ -84,7 +79,6 @@ func populateDB() error {
 		return nil
 	})
 
-	log.Printf("Populate took %s", time.Since(start))
 	if err != nil {
 		return err
 	}

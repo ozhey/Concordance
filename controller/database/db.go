@@ -3,6 +3,7 @@ package database
 import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 	"os"
 )
 
@@ -14,24 +15,22 @@ var DB *gorm.DB
 
 func SetupDB() error {
 	var err error
-	DB, err = gorm.Open(postgres.Open(os.Getenv(dsnKey)), &gorm.Config{})
-	if err != nil {
+	if DB, err = gorm.Open(postgres.Open(os.Getenv(dsnKey)), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	}); err != nil {
 		return err
 	}
 
-	err = DB.AutoMigrate(&Article{}, &ArticleLine{}, &ArticleWord{}, &WordGroup{}, &Word{}, &LinguisticExpr{})
-	if err != nil {
+	if err = DB.AutoMigrate(&Article{}, &ArticleLine{}, &ArticleWord{}, &WordGroup{}, &Word{}, &LinguisticExpr{}); err != nil {
 		return err
 	}
 
-	res := DB.First(&ArticleWord{})
-	// if there's already data in the db, do not populate
-	if res.Error == nil {
+	// don't populate if there's already data
+	if res := DB.First(&ArticleWord{}); res.Error == nil {
 		return nil
 	}
 
-	err = populateDB()
-	if err != nil {
+	if err = populateDB(); err != nil {
 		return err
 	}
 

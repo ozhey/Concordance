@@ -27,3 +27,9 @@ type wordsRes []struct {
 	WordNumber int    `json:"word_number"`
 	Word       string `json:"word"`
 }
+
+type benchmarkRes struct {
+	InsertionTime      int   `json:"insertion_time"`
+	AverageQueryTime   int   `json:"average_query_time"`
+	DiscreteQueryTimes []int `json:"discrete_query_times"`
+}

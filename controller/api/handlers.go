@@ -92,6 +92,21 @@ func getLingExprPos(c *gin.Context) {
 	handleResponse(c, exprPos, err)
 }
 
+func benchmark(c *gin.Context) {
+	replicates, err := strconv.Atoi(c.Query("replicates"))
+	if err != nil {
+		handleResponse(c, nil, err)
+	}
+
+	dbSize, err := strconv.Atoi(c.Query("db_size"))
+	if err != nil {
+		handleResponse(c, nil, err)
+	}
+
+	res, err := db.BenchmarkQuery(replicates, dbSize)
+	handleResponse(c, res, err)
+}
+
 func handleResponse(c *gin.Context, res any, err error) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

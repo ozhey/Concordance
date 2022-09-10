@@ -27,5 +27,7 @@ func SetupRouter() *gin.Engine {
 
 	r.GET("/ling_exprs", listLinguisticExpr)
 	r.POST("/ling_exprs", createLinguisticExpr)
+
+	r.POST("/benchmark", benchmark) // WARNING: this will reset the DB
 	return r
 }

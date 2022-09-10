@@ -22,23 +22,23 @@ type Article struct {
 
 type ArticlePage struct {
 	Base
-	ArticleID    uint
-	PageNumber   int
+	ArticleID    uint          `gorm:"index"`
+	PageNumber   int           `gorm:"index"`
 	ArticleLines []ArticleLine `json:",omitempty"`
 }
 
 type ArticleLine struct {
 	Base
-	ArticlePageID uint
-	LineNumber    int
+	ArticlePageID uint          `gorm:"index"`
+	LineNumber    int           `gorm:"index"`
 	ArticleWords  []ArticleWord `json:",omitempty"`
 	WordCount     int
 }
 
 type ArticleWord struct {
 	Base
-	ArticleLineID uint
-	WordNumber    int
+	ArticleLineID uint `gorm:"index"`
+	WordNumber    int  `gorm:"index"`
 	Word          string
 	CharCount     int
 }
@@ -51,7 +51,7 @@ type WordGroup struct {
 
 type Word struct {
 	Base
-	WordGroupID uint
+	WordGroupID uint   `gorm:"index"`
 	Word        string `json:"word" binding:"required"`
 }
 
