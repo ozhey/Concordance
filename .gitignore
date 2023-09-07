@@ -13,7 +13,7 @@
 
 vendor/
 
-/node_modules
+/ui/node_modules
 /.pnp
 .pnp.js
 
