@@ -1,7 +1,7 @@
 # Concordance
 Concordance is a website that provides concordance services for online articles. It was developed as part of a databases workshop at the Open University. The project utilizes Golang for the backend, React for the frontend, and PostgreSQL for the database.
 
-<img src="./img/concordance.png" alt="website" width="500"/>
+<img src="./img/concordance.png" alt="website"/>
 
 ## Local Development
 
