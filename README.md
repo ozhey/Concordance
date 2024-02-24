@@ -42,7 +42,7 @@ Note: The project may work with earlier versions, but it's not guaranteed.
 
 The server includes a `/benchmark` API endpoint for testing the performance of the database. This endpoint fetches a word index for an article multiple times under varying database sizes.
 
-> **Warning**
+> [!WARNING]  
 > Running the /benchmark API endpoint will reset the database, resulting in the loss of all data.
 
 The endpoint accepts two parameters:
