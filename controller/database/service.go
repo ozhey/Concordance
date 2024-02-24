@@ -5,6 +5,7 @@ import (
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 	"log"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -84,6 +85,11 @@ func GetWordByPosition(articleID string, lineNum string, wordNum string) (any, e
 			word = words[wordNumInt-1]
 		}
 	}
+
+	sort.Slice(lines, func(i, j int) bool {
+		return lines[i].LineNumber < lines[j].LineNumber
+	})
+
 	return wordByPositionRes{
 		Lines: lines,
 		Word:  word,
