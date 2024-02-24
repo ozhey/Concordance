@@ -40,12 +40,15 @@ Note: The project may work with earlier versions, but it's not guaranteed.
 
 ### Performance Benchmark Tests
 
-The server includes a /benchmark API endpoint for testing the performance of the database. This endpoint fetches a word index for an article multiple times under varying database sizes.
+The server includes a `/benchmark` API endpoint for testing the performance of the database. This endpoint fetches a word index for an article multiple times under varying database sizes.
+
+> **Warning**
+> Running the /benchmark API endpoint will reset the database, resulting in the loss of all data.
 
 The endpoint accepts two parameters:
+* `replicates`: the number of times the test will run.
+* `db_size`: the number of times the database will be duplicated before running the test.
 
-replicates: the number of times the test will run.
-db_size: the number of times the database will be duplicated before running the test.
 Results returned include the time taken to create the database with all indexes, the average query time, and the individual times for all queries.
 
 To configure the project with different types and amounts of indexes for performance testing, switch the structs under /controller/database/models.go with one of the sets from ./models_benchmark_vars.txt. Copy the desired set from the latter file and override all corresponding structs in models.go. Finally, restart the server and rerun the test.
